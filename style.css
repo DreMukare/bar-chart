@@ -13,5 +13,12 @@
 }
 
 svg {
-	background-color: aqua;
+	outline: 1px solid #b4c5e4;
+}
+
+rect {
+	fill: #db5461;
+}
+rect:hover {
+	fill: #fbf4fd;
 }
