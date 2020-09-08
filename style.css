@@ -10,6 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 }
 
 svg {
@@ -21,4 +22,17 @@ rect {
 }
 rect:hover {
 	fill: #fbf4fd;
+}
+
+.tooltip {
+	position: absolute;
+	height: 40px;
+	width: 130px;
+	margin: 0;
+	padding: 0;
+	background-color: #fbf4fd;
+	outline: 1px solid #b4c5e4;
+	color: #3d5467;
+	display: none;
+	text-align: center;
 }

@@ -1,19 +1,19 @@
-// Run everything only after the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", () => {
-	// Url to be used in fetch request
-	const url =
-		"https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
+// Creating custom tooltip
+const tooltip = document.getElementById("tooltip");
 
-	// fetching data from api
-	fetch(url)
-		.then((res) => res.json())
-		.then((data) => {
-			const dataset = JSON.parse(JSON.stringify(data.data));
+// Url to be used in fetch request
+const url =
+	"https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json";
 
-			// using the data in the function to create the bar chart
-			createBarChart(dataset);
-		});
-});
+// fetching data from api
+fetch(url)
+	.then((res) => res.json())
+	.then((data) => {
+		const dataset = JSON.parse(JSON.stringify(data.data));
+
+		// using the data in the function to create the bar chart
+		createBarChart(dataset);
+	});
 
 const createBarChart = (data) => {
 	// setting sizes of different elements and spacing between them
@@ -24,7 +24,7 @@ const createBarChart = (data) => {
 
 	// creating <svg> element
 	const svg = d3
-		.select("#svg")
+		.select("#container")
 		.append("svg")
 		.attr("height", h)
 		.attr("width", w);
@@ -54,21 +54,18 @@ const createBarChart = (data) => {
 		.attr("width", widthOfBar)
 		.attr("height", (d) => h - yScale(d[1]))
 		.attr("x", (d, i) => i * widthOfBar + padding)
-		.attr("y", (d) => yScale(d[1]) - padding);
-	// .on("mouseover", (d, i) => {
-	// 	const tooltip = document.getElementById("tooltip");
-
-	// 	tooltip.setAttribute("id", "tooltip");
-	// 	tooltip.setAttribute("x", i * widthOfBar + padding);
-	// 	tooltip.setAttribute("y", yScale(d[1]) - padding);
-	// 	tooltip.textContent(`${d[0]} \n $${d[1]} Billion`);
-	// });
-	// .append("title")
-	// .attr("id", "tooltip")
-	// .text((d) => `${d[0]} \n $${d[1]} Billion`);
-
-	// // creating <rect> for tooltip
-	// svg.append("rect").attr("id", "tooltip").attr("height", 30).attr("width", 70);
+		.attr("y", (d) => yScale(d[1]) - padding)
+		.on("mouseover", (d, i) => {
+			svg.append("tooltip");
+			tooltip.setAttribute("data-date", i[0]);
+			tooltip.style.left = d.clientX + "px"; // x position
+			tooltip.style.top = h - padding * 2 + "px"; // y position
+			tooltip.style.display = "block";
+			tooltip.innerHTML = `${i[0]} \n $${i[1]} Billion`;
+		})
+		.on("mouseout", (d, i) => {
+			tooltip.style.display = "none";
+		});
 
 	// NEED TO CREATE CUSTOM TOOLTIP
 
