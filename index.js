@@ -12,7 +12,7 @@ fetch(url)
 		const dataset = JSON.parse(JSON.stringify(data.data));
 
 		// using the data in the function to create the bar chart
-		createBarChart(dataset);
+		createBarChart(dataset.map((d) => [d[0], d[1]]));
 	});
 
 const createBarChart = (data) => {
@@ -20,7 +20,7 @@ const createBarChart = (data) => {
 	const w = 1200;
 	const h = 500;
 	const padding = 50;
-	const widthOfBar = (w - 2 * padding) / data.length;
+	const widthOfBar = (w - 1 * padding) / data.length;
 
 	// creating <svg> element
 	const svg = d3
@@ -31,10 +31,10 @@ const createBarChart = (data) => {
 
 	// creating scale to use in height of bars and x and y axes
 	const xScale = d3
-		.scaleLinear()
+		.scaleTime()
 		.domain([
-			d3.min(data, (d) => d[0].split("-")[0]),
-			d3.max(data, (d) => d[0].split("-")[0]),
+			d3.min(data, (d) => new Date(d[0])),
+			d3.max(data, (d) => new Date(d[0])),
 		])
 		.range([padding, w - padding]);
 	const yScale = d3
@@ -53,7 +53,7 @@ const createBarChart = (data) => {
 		.attr("data-gdp", (d) => d[1])
 		.attr("width", widthOfBar - 1)
 		.attr("height", (d) => h - 50 - yScale(d[1]))
-		.attr("x", (d, i) => i * widthOfBar + padding) // not yet fixed
+		.attr("x", (d, i) => xScale(new Date(d[0]))) // not yet fixed
 		.attr("y", (d) => yScale(d[1]))
 		.on("mouseover", (d, i) => {
 			svg.append("tooltip");
