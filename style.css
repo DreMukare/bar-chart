@@ -1,7 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	color: #3d5467;
+}
+
+body {
+	font-family: "PT Sans", sans-serif;
+	background: #8e9eab; /* fallback for old browsers */
+	background: -webkit-linear-gradient(
+		to right,
+		#eef2f3,
+		#8e9eab
+	); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(
+		to right,
+		#eef2f3,
+		#8e9eab
+	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #container {
