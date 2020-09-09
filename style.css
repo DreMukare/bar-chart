@@ -21,7 +21,7 @@ rect {
 	fill: #db5461;
 }
 rect:hover {
-	fill: #fbf4fd;
+	opacity: 0.4;
 }
 
 .tooltip {

@@ -51,10 +51,10 @@ const createBarChart = (data) => {
 		.attr("class", "bar")
 		.attr("data-date", (d) => d[0])
 		.attr("data-gdp", (d) => d[1])
-		.attr("width", widthOfBar)
-		.attr("height", (d) => h - yScale(d[1]))
-		.attr("x", (d, i) => i * widthOfBar + padding)
-		.attr("y", (d) => yScale(d[1]) - padding)
+		.attr("width", widthOfBar - 1)
+		.attr("height", (d) => h - 50 - yScale(d[1]))
+		.attr("x", (d, i) => i * widthOfBar + padding) // not yet fixed
+		.attr("y", (d) => yScale(d[1]))
 		.on("mouseover", (d, i) => {
 			svg.append("tooltip");
 			tooltip.setAttribute("data-date", i[0]);
